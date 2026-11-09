@@ -13,13 +13,19 @@ import { auditRouter } from './routes/auditRouter.ts';
 import { authRouter } from './routes/authRouter.ts';
 import { notFoundHandler } from './middlewares/notFound.ts';
 import { errorHandler } from './middlewares/errorHandler.ts';
+import cors from 'cors';
 
 const app: Application = express();
 const PORT: number = 3000;
 
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN ?? "http://localhost:5173",
+  })
+);
+
 app.use(express.json());
 
-// Normalize tokens pasted into Swagger's apiKey field to the format expected by auth middleware.
 app.use(
   '/docs',
   swaggerUi.serve,
