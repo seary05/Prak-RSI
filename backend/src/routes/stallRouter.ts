@@ -19,6 +19,12 @@ stallRouter.get('/', validate(stallQuerySchema, 'query'), (req, res) => {
   return stallController.getStalls(req, res);
 });
 
+stallRouter.get('/categories', (_req, res) => {
+  // #swagger.security = []
+  // #swagger.responses[200] = { description: 'Daftar kategori warung', schema: { status: 'success', data: ['Nasi', 'Minuman'] } }
+  return stallController.getCategories(_req, res);
+});
+
 stallRouter.post('/', authenticate, authorize('owner', 'admin'), validate(createStallSchema, 'body'), (req, res) => {
   // #swagger.parameters['body'] = { in: 'body', required: true, schema: { $ref: '#/definitions/StallInput' } }
   // #swagger.responses[401] = { description: 'Token tidak ada atau tidak valid', schema: { $ref: '#/definitions/ErrorResponse' } }

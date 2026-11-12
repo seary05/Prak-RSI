@@ -6,6 +6,8 @@ import StallDetailPage from "./pages/StallDetailPage";
 import StallCreatePage from "./pages/StallCreatePage.tsx";
 import StallEditPage from "./pages/StallEditPage";
 import LoginPage from "./pages/LoginPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -18,6 +20,8 @@ export default function App() {
         <Route path="/" element={<StallListPage />} />
         <Route path="/stalls/:id" element={<StallDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
         {/* Wajib login (semua role) */}

@@ -1,4 +1,4 @@
-import { and, count, eq, like, type SQL } from 'drizzle-orm';
+import { and, count, eq, like, isNotNull, ne, asc, type SQL } from 'drizzle-orm';
 import { getDb } from '../db/index.ts';
 import { stalls } from '../db/schema.ts';
 
@@ -85,5 +85,14 @@ export class StallRepository {
     const db = await getDb();
     const rows = await db.delete(stalls).where(eq(stalls.id, id)).output();
     return rows[0];
+  }
+
+  async findAllCategories(): Promise<{ category: string | null }[]> {
+  const db = await getDb();
+  return db // ⚠️ samakan dengan cara findAll() di file itu mengakses db
+    .selectDistinct({ category: stalls.category })
+    .from(stalls)
+    .where(and(isNotNull(stalls.category), ne(stalls.category, '')))
+    .orderBy(asc(stalls.category));
   }
 }

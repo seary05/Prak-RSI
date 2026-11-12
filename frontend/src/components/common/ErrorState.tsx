@@ -1,4 +1,5 @@
 import type { ApiError } from "../../api/apiError";
+import Icon from "./Icon";
 
 interface Props {
   error: ApiError;
@@ -14,11 +15,17 @@ export default function ErrorState({ error, onRetry }: Props) {
       : "Terjadi kesalahan";
 
   return (
-    <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center" role="alert">
-      <p className="text-lg font-semibold text-red-700">{title}</p>
-      <p className="mt-1 text-sm text-red-600">{error.message}</p>
+    <div className="rounded-3xl border border-rose-200 bg-rose-50 px-6 py-12 text-center" role="alert">
+      <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-rose-100 text-rose-600">
+        <Icon name="alert" className="h-7 w-7" />
+      </div>
+      <p className="mt-4 text-lg font-bold text-rose-800">{title}</p>
+      <p className="mx-auto mt-1 max-w-md text-sm text-rose-700">{error.message}</p>
       {onRetry && (
-        <button onClick={onRetry} className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700">
+        <button
+          onClick={onRetry}
+          className="mt-5 rounded-full bg-rose-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-rose-700 active:scale-95"
+        >
           Coba lagi
         </button>
       )}

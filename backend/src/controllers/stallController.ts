@@ -18,6 +18,11 @@ export class StallController {
     res.status(200).json({ status: 'success', meta: { page, limit, total }, data });
   };
 
+  getCategories = async (_req: Request, res: Response): Promise<void> => {
+    const data = await this.stallService.getCategories();
+    res.status(200).json({ status: 'success', data });
+  };
+
   getStallById = async (_req: Request, res: Response): Promise<void> => {
     const { id } = getValidated<IdParam>(res, 'params');
     const stall = await this.stallService.getStallById(id);

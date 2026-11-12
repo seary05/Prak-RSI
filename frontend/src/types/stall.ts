@@ -4,7 +4,10 @@ export interface Stall {
   category: string | null;
   location: string | null;
   description: string | null;
-  ownerId?: number | null; // ⚠️ SESUAIKAN nama field pemilik dari backend (lihat BACKEND_CONTRACT)
+  ownerId?: number | null;
+  avgRating?: number;
+  reviewCount?: number;
+  isPopular?: boolean;
 }
 
 export interface StallInput {

@@ -9,6 +9,8 @@ BEGIN
         name          NVARCHAR(100) NOT NULL,
         email         NVARCHAR(150) NOT NULL CONSTRAINT UQ_USERS_email UNIQUE,
         password_hash NVARCHAR(255) NOT NULL,
+        password_reset_token_hash NVARCHAR(64) NULL,
+        password_reset_expires_at DATETIME2(0) NULL,
         role          NVARCHAR(20)  NOT NULL
             CONSTRAINT CK_USERS_role CHECK (role IN ('admin', 'owner', 'customer')),
         created_at    DATETIME2(0)  NOT NULL CONSTRAINT DF_USERS_created_at DEFAULT SYSDATETIME()

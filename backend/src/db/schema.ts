@@ -12,6 +12,8 @@ export const users = mssqlTable('USERS', {
   name: nvarchar('name', { length: 100 }).notNull(),
   email: nvarchar('email', { length: 150 }).notNull().unique(),
   passwordHash: nvarchar('password_hash', { length: 255 }).notNull(),
+  passwordResetTokenHash: nvarchar('password_reset_token_hash', { length: 64 }),
+  passwordResetExpiresAt: datetime2('password_reset_expires_at'),
   role: nvarchar('role', { length: 20, enum: ['admin', 'owner', 'customer'] }).notNull(),
   createdAt: datetime2('created_at'),
 });

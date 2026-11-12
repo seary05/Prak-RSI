@@ -1,18 +1,20 @@
-import { useState, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { toApiError, type ApiError } from "../api/apiError";
 import FormField from "../components/common/FormField";
+import AuthShell from "../components/layout/AuthShell";
 
 export default function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
 
-  const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
+  const set = (key: keyof typeof form) => (e: ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [key]: e.target.value }));
 
   async function handleSubmit(e: FormEvent) {
@@ -30,22 +32,39 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="mx-auto max-w-sm rounded-xl bg-white p-6 shadow">
-      <h1 className="mb-4 text-xl font-semibold">Register</h1>
+    <AuthShell
+      title="Buat akun baru"
+      subtitle="Gratis dan cuma butuh beberapa detik."
+      footer={
+        <>
+          Sudah punya akun?{" "}
+          <Link to="/login" className="font-bold text-brand-600 hover:underline">Login</Link>
+        </>
+      }
+    >
       {error && Object.keys(error.fieldErrors).length === 0 && (
-        <p className="mb-3 rounded bg-red-50 p-2 text-sm text-red-700" role="alert">{error.message}</p>
+        <p className="mb-4 rounded-xl bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700" role="alert">{error.message}</p>
       )}
       <form onSubmit={handleSubmit} className="space-y-4">
-        <FormField label="Nama" name="name" value={form.name} onChange={set("name")} error={error?.fieldErrors.name} required />
-        <FormField label="Email" name="email" type="email" value={form.email} onChange={set("email")} error={error?.fieldErrors.email} required />
-        <FormField label="Password" name="password" type="password" value={form.password} onChange={set("password")} error={error?.fieldErrors.password} required />
-        <button disabled={submitting} className="w-full rounded-lg bg-blue-600 py-2 text-white hover:bg-blue-700 disabled:opacity-60">
+        <FormField label="Nama" name="name" value={form.name} onChange={set("name")} error={error?.fieldErrors.name} placeholder="Nama lengkap" />
+        <FormField label="Email" name="email" type="email" value={form.email} onChange={set("email")} error={error?.fieldErrors.email} placeholder="nama@email.com" />
+        <FormField label="Password" name="password" type={showPassword ? "text" : "password"} autoComplete="new-password" value={form.password} onChange={set("password")} error={error?.fieldErrors.password} placeholder="Minimal 8 karakter" />
+        <button
+          type="button"
+          aria-controls="password"
+          aria-pressed={showPassword}
+          onClick={() => setShowPassword((visible) => !visible)}
+          className="-mt-2 text-sm font-semibold text-brand-700 hover:text-brand-800"
+        >
+          {showPassword ? "Sembunyikan password" : "Tampilkan password"}
+        </button>
+        <button
+          disabled={submitting}
+          className="w-full rounded-full bg-brand-600 py-3 text-sm font-bold text-white shadow-md shadow-brand-500/25 transition hover:bg-brand-700 active:scale-[0.98] disabled:opacity-60"
+        >
           {submitting ? "Memproses..." : "Daftar"}
         </button>
       </form>
-      <p className="mt-4 text-center text-sm text-gray-600">
-        Sudah punya akun? <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
-      </p>
-    </div>
+    </AuthShell>
   );
 }

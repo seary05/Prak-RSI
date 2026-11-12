@@ -39,6 +39,11 @@ export class StallService {
     };
   }
 
+  async getCategories(): Promise<string[]> {
+  const rows = await this.stallRepository.findAllCategories();
+  return rows.map((row) => row.category).filter((c): c is string => !!c);
+  }
+
   async getAllStalls(params: FindAllParams) {
     const { rows, total } = await this.stallRepository.findAll(params);
     return { data: rows.map((row) => this.toDto(row)), total };

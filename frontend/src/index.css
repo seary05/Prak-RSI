@@ -1,1 +1,55 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #f5f4ff;
+  --color-brand-100: #e9e7ff;
+  --color-brand-200: #d3d0ff;
+  --color-brand-300: #b7b2fa;
+  --color-brand-400: #9990ee;
+  --color-brand-500: #8074df;
+  --color-brand-600: #6d5dcc;
+  --color-brand-700: #5b4bb0;
+  --color-brand-800: #493d8a;
+
+  --color-cream: #f5f8ff;
+  --color-ink: #242846;
+  --color-muted: #68708f;
+  --color-line: #e1e6f5;
+
+  --shadow-card: 0 1px 2px rgb(36 40 70 / 0.04), 0 8px 24px -10px rgb(74 82 140 / 0.14);
+  --shadow-lift: 0 2px 4px rgb(36 40 70 / 0.05), 0 20px 40px -14px rgb(128 116 223 / 0.3);
+
+  --animate-pop-in: pop-in 0.22s ease-out;
+  @keyframes pop-in {
+    from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--color-brand-200); }
+
+/* Fokus keyboard yang jelas */
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+/* Hormati pengaturan "reduce motion" */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

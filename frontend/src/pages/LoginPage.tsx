@@ -5,6 +5,7 @@ import { useToast } from "../context/toast";
 import { toApiError, type ApiError } from "../api/apiError";
 import { SESSION_EXPIRED_KEY } from "../api/axiosClient";
 import FormField from "../components/common/FormField";
+import AuthShell from "../components/layout/AuthShell";
 
 export default function LoginPage() {
   const { user, login } = useAuth();
@@ -14,6 +15,7 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
   const [expired] = useState(() => {
@@ -43,24 +45,44 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="mx-auto max-w-sm rounded-xl bg-white p-6 shadow">
-      <h1 className="mb-4 text-xl font-semibold">Login</h1>
-
-      {expired && <p className="mb-3 rounded bg-yellow-50 p-2 text-sm text-yellow-800">Sesi Anda berakhir. Silakan login kembali.</p>}
-      {justRegistered && <p className="mb-3 rounded bg-green-50 p-2 text-sm text-green-800">Registrasi berhasil. Silakan login.</p>}
-      {error && <p className="mb-3 rounded bg-red-50 p-2 text-sm text-red-700" role="alert">{error.message}</p>}
+    <AuthShell
+      title="Masuk ke akunmu"
+      subtitle="Login untuk mengelola warung atau memberi review."
+      footer={
+        <>
+          Belum punya akun?{" "}
+          <Link to="/register" className="font-bold text-brand-600 hover:underline">Daftar sekarang</Link>
+        </>
+      }
+    >
+      {expired && <p className="mb-4 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">Sesi Anda berakhir. Silakan login kembali.</p>}
+      {justRegistered && <p className="mb-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">Registrasi berhasil. Silakan login.</p>}
+      {error && <p className="mb-4 rounded-xl bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700" role="alert">{error.message}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <FormField label="Email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} error={error?.fieldErrors.email} required />
-        <FormField label="Password" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} error={error?.fieldErrors.password} required />
-        <button disabled={submitting} className="w-full rounded-lg bg-blue-600 py-2 text-white hover:bg-blue-700 disabled:opacity-60">
+        <FormField label="Email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} error={error?.fieldErrors.email} placeholder="nama@email.com" />
+        <FormField label="Password" name="password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} error={error?.fieldErrors.password} placeholder="••••••••" />
+        <button
+          type="button"
+          aria-controls="password"
+          aria-pressed={showPassword}
+          onClick={() => setShowPassword((visible) => !visible)}
+          className="-mt-2 text-sm font-semibold text-brand-700 hover:text-brand-800"
+        >
+          {showPassword ? "Sembunyikan password" : "Tampilkan password"}
+        </button>
+        <div className="-mt-2 text-right">
+          <Link to="/forgot-password" className="text-sm font-semibold text-brand-700 hover:text-brand-800 hover:underline">
+            Lupa password?
+          </Link>
+        </div>
+        <button
+          disabled={submitting}
+          className="w-full rounded-full bg-brand-600 py-3 text-sm font-bold text-white shadow-md shadow-brand-500/25 transition hover:bg-brand-700 active:scale-[0.98] disabled:opacity-60"
+        >
           {submitting ? "Memproses..." : "Login"}
         </button>
       </form>
-
-      <p className="mt-4 text-center text-sm text-gray-600">
-        Belum punya akun? <Link to="/register" className="text-blue-600 hover:underline">Register</Link>
-      </p>
-    </div>
+    </AuthShell>
   );
 }

@@ -13,23 +13,23 @@ BEGIN
     SET IDENTITY_INSERT dbo.USERS ON;
     INSERT INTO dbo.USERS (id, name, email, password_hash, role) VALUES
         -- admin
-        (1,  N'Admin Kantin', N'admin@kantin.test',   N'hash_admin',  N'admin'),
+        (1,  N'Admin Kantin', N'admin@kantin.test',   N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm',  N'admin'),
         -- owner (1 owner per warung)
-        (2,  N'Bu Tini',      N'tini@kantin.test',    N'hash_owner1', N'owner'),
-        (3,  N'Pak Slamet',   N'slamet@kantin.test',  N'hash_owner2', N'owner'),
-        (4,  N'Pak Makmur',   N'makmur@kantin.test',  N'hash_owner3', N'owner'),
-        (5,  N'Cak Nur',      N'caknur@kantin.test',  N'hash_owner4', N'owner'),
-        (6,  N'Bu Wati',      N'wati@kantin.test',    N'hash_owner5', N'owner'),
-        (7,  N'Mas Bayu',     N'bayu@kantin.test',    N'hash_owner6', N'owner'),
-        (8,  N'Mas Andre',    N'andre@kantin.test',   N'hash_owner7', N'owner'),
-        (9,  N'Bu Inah',      N'inah@kantin.test',    N'hash_owner8', N'owner'),
-        (10, N'Bu Sari',      N'sari@kantin.test',    N'hash_owner9', N'owner'),
-        (11, N'Pak Hasan',    N'hasan@kantin.test',   N'hash_owner10',N'owner'),
+        (2,  N'Bu Tini',      N'tini@kantin.test',    N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm', N'owner'),
+        (3,  N'Pak Slamet',   N'slamet@kantin.test',  N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm', N'owner'),
+        (4,  N'Pak Makmur',   N'makmur@kantin.test',  N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm', N'owner'),
+        (5,  N'Cak Nur',      N'caknur@kantin.test',   N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm', N'owner'),
+        (6,  N'Bu Wati',      N'wati@kantin.test',    N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm', N'owner'),
+        (7,  N'Mas Bayu',     N'bayu@kantin.test',    N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm', N'owner'),
+        (8,  N'Mas Andre',    N'andre@kantin.test',   N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm', N'owner'),
+        (9,  N'Bu Inah',      N'inah@kantin.test',    N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm', N'owner'),
+        (10, N'Bu Sari',      N'sari@kantin.test',    N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm', N'owner'),
+        (11, N'Pak Hasan',    N'hasan@kantin.test',   N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm',N'owner'),
         -- customer
-        (12, N'Bagas Pratama',N'bagas@student.test',  N'hash_cust1',  N'customer'),
-        (13, N'Sinta Maharani',N'sinta@student.test', N'hash_cust2',  N'customer'),
-        (14, N'Yoga Saputra', N'yoga@student.test',   N'hash_cust3',  N'customer'),
-        (15, N'Dewi Lestari', N'dewi@student.test',   N'hash_cust4',  N'customer');
+        (12, N'Bagas Pratama',N'bagas@student.test',  N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm',  N'customer'),
+        (13, N'Sinta Maharani',N'sinta@student.test', N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm',  N'customer'),
+        (14, N'Yoga Saputra', N'yoga@student.test',   N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm',  N'customer'),
+        (15, N'Dewi Lestari', N'dewi@student.test',   N'$2b$12$85UZTRGaBpa9itG3Z/j0A.//zYsr0LwUwLeXX0u7XHai2dq.8j.gm',  N'customer');
     SET IDENTITY_INSERT dbo.USERS OFF;
     DBCC CHECKIDENT ('dbo.USERS', RESEED, 15) WITH NO_INFOMSGS;
     PRINT 'Seed USERS selesai.';

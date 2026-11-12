@@ -9,18 +9,20 @@ export default function FormField({ label, error, id, ...rest }: Props) {
   const inputId = id ?? rest.name;
   return (
     <div>
-      <label htmlFor={inputId} className="mb-1 block text-sm font-medium text-gray-700">
+      <label htmlFor={inputId} className="mb-1.5 block text-sm font-semibold">
         {label}
       </label>
       <input
         id={inputId}
         aria-invalid={!!error}
-        className={`w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 ${
-          error ? "border-red-500" : "border-gray-300"
+        className={`w-full rounded-xl border bg-white px-4 py-2.5 text-sm outline-none transition placeholder:text-muted/60 focus:ring-4 ${
+          error
+            ? "border-rose-400 focus:ring-rose-100"
+            : "border-line focus:border-brand-400 focus:ring-brand-100"
         }`}
         {...rest}
       />
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      {error && <p className="mt-1.5 text-xs font-medium text-rose-600">{error}</p>}
     </div>
   );
 }
